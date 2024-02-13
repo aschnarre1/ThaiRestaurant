@@ -1,0 +1,11 @@
+﻿@model ThaiRestaurant.Models.Dish
+@if (User.Identity.IsAuthenticated)
+{
+<h2>Delete Dish</h2>
+<p>Are you sure you want to delete the dish "@Model.Name"?</p>
+
+<div>
+    <a asp-controller="Dishes" asp-action="DeleteData" asp-route-id="@Model.DishId" class="btn btn-danger">Delete</a>
+    <a asp-controller="Dishes" asp-action ="Index" class="btn btn-secondary">Cancel</a>
+</div>
+}

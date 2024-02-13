@@ -1,9 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+using Microsoft.AspNetCore.Authentication.Cookies;
+using ThaiRestaurant.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+//builder.Services.AddScoped<DatabaseContext>(provider =>
+//        new DatabaseContext(provider.GetRequiredService<IConfiguration>()));
+builder.Services.AddScoped<ImageUploadService>(); 
+builder.Services.AddScoped<DatabaseContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(opts => opts.LoginPath = "/User/Login");
+builder.Services.AddScoped<ImageUploadService>();
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

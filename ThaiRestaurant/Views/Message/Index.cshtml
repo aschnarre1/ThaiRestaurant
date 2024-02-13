@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ThaiRestaurant.Models.Message>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h1>Messages</h1>
+    <div class="row">
+        @foreach (var message in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="card-title">@message.Name</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-text">@message.Email</p>
+                        <p class="card-text">@message.MessageText</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Message" asp-action="Delete" asp-route-id="@message.MessageId" class="btn btn-danger">
+                                <i class="bi bi-plus-circle"></i> Delete Message
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+}

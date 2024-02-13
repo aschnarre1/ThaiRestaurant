@@ -1,24 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ThaiRestaurant.Models;
+using ThaiRestaurant.Data; 
 
 namespace ThaiRestaurant.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DatabaseContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DatabaseContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var dishes = _context.GetDishes(); 
+            return View(dishes); 
         }
 
-        public IActionResult Privacy()
+        public IActionResult ContactUs()
         {
             return View();
         }

@@ -1,0 +1,11 @@
+﻿@model ThaiRestaurant.Models.User
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Delete User</h2>
+    <p>Are you sure you want to delete the user "@Model.UserName"?</p>
+
+    <div>
+        <a asp-controller="User" asp-action="DeleteUserData" asp-route-id="@Model.UserId" class="btn btn-danger">Delete</a>
+        <a asp-controller="User" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+}

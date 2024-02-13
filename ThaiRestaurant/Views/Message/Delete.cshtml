@@ -1,0 +1,11 @@
+﻿@model ThaiRestaurant.Models.Message
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Delete Message</h2>
+    <p>Are you sure you want to delete the message from: "@Model.Name"?</p>
+
+    <div>
+        <a asp-controller="Message" asp-action="DeleteMessage" asp-route-id="@Model.MessageId" class="btn btn-danger">Delete</a>
+        <a asp-controller="Message" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+}

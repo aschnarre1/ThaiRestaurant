@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ThaiRestaurant.Models.Dish>
+
+<h2>Dishes</h2>
+
+<div class="row">
+    @foreach (var dish in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="card-title">@dish.Name</h5>
+                </div>
+                
+                <div class="card-body">
+                    <img src="@dish.ImageUrl" class="card-img-top" alt="Image of @dish.Name">
+                    <p class="card-text">Price: @dish.Price</p>
+                    <p class="card-text">@dish.Description</p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <a asp-controller="Dishes" asp-action="Edit" asp-route-id="@dish.DishId" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Edit dish
+                    </a>
+                    <a asp-controller="Dishes" asp-action="Delete" asp-route-id="@dish.DishId" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Delete dish
+                    </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+<div class="col-12 text-end mt-3">
+    <a asp-controller="Dishes" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Create new Dish
+    </a>
+</div>
+}

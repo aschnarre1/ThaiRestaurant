@@ -1,8 +1,58 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<ThaiRestaurant.Models.Dish>
+
+<h1 id="welcomeHeader">Welcome to AllRiceThaiHut!!!</h1>
+
+<div id="welcomeText">
+    Welcome to All Rice Thai Hut, where the vibrant heart of Thailand's culinary traditions meets a cozy and inviting atmosphere. 
+    Step into our little haven and be greeted by the enticing aromas of authentic Thai cuisine, crafted with passion and a flair 
+    for the exotic. Our menu, a delightful blend of classic Thai favorites and innovative creations, is a testament to the rich and 
+    diverse flavors that Thai food is celebrated for. Each dish, from the zesty Pad Thai to the sumptuously spicy Green Curry, is 
+    prepared using the freshest ingredients, ensuring a meal that is not just delicious but also truly soul-satisfying. At All Rice 
+    Thai Hut, we're more than just a restaurant; we're a culinary experience that brings a taste of Thailand right to your table. 
+    Join us for a meal, and let our warm hospitality and delectable dishes whisk you away on an unforgettable gastronomic journey. 
+    Welcome, and prepare to be delighted!
+</div>
+
+
+<h2 id="featuredDishes">Featured Dishes</h2>
+@if (Model != null && Model.Any())
+{
+    <div class="slick-carousel">
+        @foreach (var dish in Model)
+        {
+            <div>
+                <h3>@dish.Name</h3>
+                <img src="@dish.ImageUrl" alt="@dish.Name" />
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No dishes available.</p>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.slick-carousel').slick({
+                autoplay: true,
+                autoplaySpeed: 5000,
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                dots: true,
+                arrows: false,
+                responsive: [
+                    {
+                        breakpoint: 600, 
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+}

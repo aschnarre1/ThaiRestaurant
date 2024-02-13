@@ -1,0 +1,30 @@
+﻿@model User
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Register User</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" asp-asp-controller="User" asp-action="Register" class="row">
+            <div class="form-floating py-2 col-12">
+                <input asp-for="UserName" class="form-control border-0 shadow" />
+                <label asp-for="UserName" class="ms-2" style="color: black;"></label>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                <input asp-for="Email" class="form-control border-0 shadow" />
+                <label asp-for="Email" class="ms-2" style="color: black;"></label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                <input asp-for="Password" class="form-control border-0 shadow" />
+                <label asp-for="Password" class="ms-2" style="color: black;"></label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>

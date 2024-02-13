@@ -2,11 +2,6 @@ html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -18,5 +13,217 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    color: white;
+    padding-top: 70px;
+    background-color: black;
+}
+
+h1,h2,h3,h4,h5,h6{
+    color:green;
+}
+
+.footer-text {
+    text-align: right;
+    margin-right: 20px;
+}
+
+
+
+.compact-paragraph {
+    margin-bottom: 0;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+}
+
+.nav-link {
+    padding: 0.25rem 0;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    margin-left: 1rem;
+    border-bottom: 0.25rem solid transparent;
+}
+
+    .nav-link:hover {
+        color: rgba(255, 255, 255, 0.5);
+        border-bottom-color: black;
+    }
+
+    .nav-link.active {
+        color: black;
+        border-bottom-color: black;
+    }
+
+.btn-secondary,
+.btn-secondary:hover {
+    color: #333;
+    text-shadow: none;
+}
+
+
+
+.navBarLogo-container img {
+    height: auto;
+    max-height: 4rem;
+    width: auto;
+    max-width: 100%;
+}
+
+
+.navBarLogo-container img {
+    max-height: 4rem;
+}
+
+
+.slick-carousel {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+    .slick-carousel div {
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .slick-carousel h3 {
+        margin: 10px 0;
+        font-size: 1.2em;
+        color: white;
+    }
+
+
+    .slick-carousel img {
+        width: 100%; 
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+
+
+
+
+.no-dishes {
+    text-align: center;
+    font-size: 1em;
+    color: #666;
+}
+
+
+
+
+.row {
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.card {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.card-header {
+    background-color: #f8f9fa; 
+    border-bottom: 1px solid #eaeaea; 
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.2em; 
+    color: #333; 
+}
+
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #eaeaea; 
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-text {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.btn-primary {
+    margin-right: 5px;
+    margin-top: 5px;
+    background-color: #007bff; 
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3; 
+        border-color: #0056b3;
+    }
+
+.col-12.text-end {
+    padding: 15px;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px; 
+    }
+    .slick-carousel {
+        max-width: 100%;
+    }
+    html {
+        font-size: 16px;
+    }
+}
+
+
+.footer {
+    padding: 0px 0;
+}
+
+@media (max-width: 768px) {
+    .footer-text {
+        font-size: 14px;
+        text-align: right;
+    }
+}
+
+@media (min-width: 769px) {
+    .footer-text {
+        font-size: 16px;
+        text-align: right;
+    }
+}
+
+#welcomeHeader {
+    text-align: center;
+}
+
+#welcomeText{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align:center;
+}
+
+#featuredDishes {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align:center;
 }
