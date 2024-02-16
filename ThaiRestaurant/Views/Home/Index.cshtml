@@ -20,10 +20,12 @@
     <div class="slick-carousel">
         @foreach (var dish in Model)
         {
+            @if(dish.IsFeatured == true){
             <div>
                 <h3>@dish.Name</h3>
                 <img src="@dish.ImageUrl" alt="@dish.Name" />
             </div>
+            }
         }
     </div>
 }

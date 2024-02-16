@@ -78,17 +78,7 @@ namespace ThaiRestaurant.Controllers
             return View(dish);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public IActionResult Edit(Dish dish)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.EditDish(dish);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(dish);
-        //}
+
 
         [HttpPost]
         [Authorize]
@@ -115,11 +105,11 @@ namespace ThaiRestaurant.Controllers
                 existingDish.Name = dish.Name;
                 existingDish.Description = dish.Description;
                 existingDish.Price = dish.Price;
+                existingDish.IsFeatured = dish.IsFeatured;
 
                 _context.EditDish(existingDish);
                 return RedirectToAction("Index");
             }
-
             return View(dish);
         }
 

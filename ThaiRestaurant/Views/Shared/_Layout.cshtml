@@ -12,6 +12,13 @@
 </head>
 <body>
     <header>
+        @using Microsoft.Extensions.Configuration
+        @inject IConfiguration Configuration
+        @{
+            var allowedIps = Configuration.GetSection("IpRestriction:AllowedIps").Get<string[]>();
+            var remoteIp = Context.Connection.RemoteIpAddress.ToString();
+            var isAllowedIp = allowedIps.Contains(remoteIp);
+        }
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">All Rice Thai Hut</a>
@@ -36,9 +43,12 @@
                         <div class="ms-auto d-flex">
                             @if (!User.Identity.IsAuthenticated)
                             {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
-                            </li>
+                                @if (isAllowedIp)
+                                {
+                                    <li class="nav-item">
+                                         <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                                    </li>
+                                }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                             </li>

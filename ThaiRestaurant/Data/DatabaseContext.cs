@@ -38,6 +38,8 @@ namespace ThaiRestaurant.Data
                                 Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString("Description"),
                                 Price = reader.GetDecimal("Price"),
                                 ImageUrl = reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader.GetString("ImageUrl"),
+                                IsFeatured = reader.IsDBNull(reader.GetOrdinal("IsFeatured")) ? false : reader.GetBoolean("IsFeatured")
+
                             };
                             dishes.Add(dish);
                         }
@@ -144,7 +146,7 @@ namespace ThaiRestaurant.Data
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                var query = "UPDATE dish SET Name = @Name, Description = @Description, Price = @Price, ImageUrl = @ImageUrl WHERE DishId = @DishId";
+                var query = "UPDATE dish SET Name = @Name, Description = @Description, IsFeatured = @IsFeatured, Price = @Price, ImageUrl = @ImageUrl WHERE DishId = @DishId";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Name", dish.Name);
@@ -152,6 +154,7 @@ namespace ThaiRestaurant.Data
                     command.Parameters.AddWithValue("@Price", dish.Price);
                     command.Parameters.AddWithValue("@ImageUrl", dish.ImageUrl);
                     command.Parameters.AddWithValue("@DishId", dish.DishId);
+                    command.Parameters.AddWithValue("@IsFeatured", dish.IsFeatured);
 
                     command.ExecuteNonQuery();
                 }
@@ -179,6 +182,7 @@ namespace ThaiRestaurant.Data
                                 Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString("Description"),
                                 Price = reader.GetDecimal("Price"),
                                 ImageUrl = reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader.GetString("ImageUrl"),
+                                IsFeatured = reader.GetBoolean("IsFeatured")
                             };
                         }
                     }

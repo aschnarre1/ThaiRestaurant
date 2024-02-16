@@ -1,10 +1,10 @@
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ThaiRestaurant.Data;
+//using ThaiRestaurant.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddScoped<DatabaseContext>(provider =>
-//        new DatabaseContext(provider.GetRequiredService<IConfiguration>()));
+
 builder.Services.AddScoped<ImageUploadService>(); 
 builder.Services.AddScoped<DatabaseContext>();
 builder.Services.AddControllersWithViews();
@@ -13,7 +13,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddScoped<ImageUploadService>();
 
 
+builder.Logging.AddAWSProvider(builder.Configuration.GetAWSLoggingConfigSection());
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
+
 var app = builder.Build();
+
+
+
 
 
 // Configure the HTTP request pipeline.
@@ -28,6 +34,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+
+//ip
+//app.UseMiddleware<IpRestrictionMiddleware>();
+//ip:
+app.UseAuthentication();
 
 app.UseAuthorization();
 

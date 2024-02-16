@@ -21,5 +21,7 @@ namespace ThaiRestaurant.Models
         [StringLength(300)]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }
+
+        public bool IsFeatured { get; set; }
     }
 }
