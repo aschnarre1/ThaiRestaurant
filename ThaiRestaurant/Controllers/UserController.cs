@@ -40,6 +40,8 @@ namespace ThaiRestaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.UserName = user.UserName.Trim();
+                user.Password = user.Password.Trim();
                 _context.AddUser(user);
                 await SetAuthCookie(user);
                 return RedirectToAction("Index", "User");
@@ -59,6 +61,9 @@ namespace ThaiRestaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.UserName = user.UserName.Trim();
+                user.Password = user.Password.Trim();
+
                 var loggedInUser = _context.LoginUser(user.UserName, user.Password);
                 if (loggedInUser != null)
                 {
@@ -102,11 +107,14 @@ namespace ThaiRestaurant.Controllers
 
         private async Task SetAuthCookie(User user)
         {
+            var isAdmin = _context.GetUserById(user.UserId)?.isAdmin ?? false;
             List<Claim> claims = new()
             {
                 new Claim(ClaimTypes.Sid, user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim("IsAdmin", isAdmin.ToString()), 
+
+
             };
 
             ClaimsIdentity claimsIdentity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -116,7 +124,7 @@ namespace ThaiRestaurant.Controllers
             AuthenticationProperties authenticationProperties = new()
             {
                 IsPersistent = false,
-                ExpiresUtc = DateTime.UtcNow.AddDays(1)
+                ExpiresUtc = DateTime.UtcNow.AddHours(1)
             };
 
             await HttpContext.SignOutAsync();

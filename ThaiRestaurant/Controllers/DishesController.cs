@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http; 
 using ThaiRestaurant.Data;
 using ThaiRestaurant.Models;
+using Google.Protobuf;
 namespace ThaiRestaurant.Controllers
 {
     public class DishesController : Controller
@@ -46,6 +47,8 @@ namespace ThaiRestaurant.Controllers
 
             if (ModelState.IsValid)
             {
+                dish.Name = dish.Name.Trim();
+                dish.Description = dish.Description.Trim();
                 _context.AddDish(dish, imageFile);
                 return RedirectToAction("Index");
             }
@@ -102,6 +105,8 @@ namespace ThaiRestaurant.Controllers
                     existingDish.ImageUrl = _imageUploadService.UploadImage(imageFile); // Update ImageUrl only if a new file is provided
                 }
 
+                dish.Name = dish.Name.Trim();
+                dish.Description = dish.Description.Trim();
                 existingDish.Name = dish.Name;
                 existingDish.Description = dish.Description;
                 existingDish.Price = dish.Price;

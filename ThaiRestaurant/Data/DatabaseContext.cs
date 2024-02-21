@@ -71,7 +71,6 @@ namespace ThaiRestaurant.Data
                             {
                                 MessageId = reader.GetInt32("MessageId"),
                                 Name = reader.GetString("Name"),
-                                Email = reader.GetString("Email"),
                                 MessageText = reader.GetString("MessageText")
 
                             };
@@ -102,8 +101,7 @@ namespace ThaiRestaurant.Data
                             {
                                 UserId = reader.GetInt32("UserId"),
                                 UserName = reader.GetString("UserName"),
-                                Email = reader.GetString("Email"),
-
+                                isAdmin = reader.IsDBNull(reader.GetOrdinal("isAdmin")) ? false : reader.GetBoolean("isAdmin")
                             };
                             users.Add(user);
                         }
@@ -128,13 +126,14 @@ namespace ThaiRestaurant.Data
 
                 string imageUrl = _imageUploadService.UploadImage(imageFile);
 
-                var query = "INSERT INTO dish (Name, Description, Price, ImageUrl) VALUES (@Name, @Description, @Price, @ImageUrl)";
+                var query = "INSERT INTO dish (Name, Description, Price, ImageUrl, IsFeatured) VALUES (@Name, @Description, @Price, @ImageUrl, @IsFeatured)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Name", dish.Name);
                     command.Parameters.AddWithValue("@Description", dish.Description);
                     command.Parameters.AddWithValue("@Price", dish.Price);
                     command.Parameters.AddWithValue("@ImageUrl", imageUrl);
+                    command.Parameters.AddWithValue("@IsFeatured", dish.IsFeatured);
 
                     command.ExecuteNonQuery();
                 }
@@ -182,7 +181,7 @@ namespace ThaiRestaurant.Data
                                 Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString("Description"),
                                 Price = reader.GetDecimal("Price"),
                                 ImageUrl = reader.IsDBNull(reader.GetOrdinal("ImageUrl")) ? null : reader.GetString("ImageUrl"),
-                                IsFeatured = reader.GetBoolean("IsFeatured")
+                                IsFeatured = reader.IsDBNull(reader.GetOrdinal("IsFeatured")) ? false : reader.GetBoolean("IsFeatured")
                             };
                         }
                     }
@@ -211,8 +210,9 @@ namespace ThaiRestaurant.Data
                             {
                                 UserId = reader.GetInt32("UserId"),
                                 UserName = reader.GetString("UserName"),
-                                Email = reader.GetString("Email"),
                                 Password = reader.GetString("Password"),
+                                isAdmin = reader.IsDBNull(reader.GetOrdinal("isAdmin")) ? false : reader.GetBoolean("isAdmin")
+
                             };
                         }
                     }
@@ -241,7 +241,6 @@ namespace ThaiRestaurant.Data
                             {
                                 MessageId = reader.GetInt32("MessageId"),
                                 Name = reader.GetString("Name"),
-                                Email = reader.GetString("Email"),
                                 MessageText = reader.GetString("MessageText"),
                             };
                         }
@@ -291,12 +290,11 @@ namespace ThaiRestaurant.Data
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                var query = "INSERT INTO message (Name, Email, MessageText) VALUES (@Name, @Email, @MessageText)";
+                var query = "INSERT INTO message (Name, MessageText) VALUES (@Name, @MessageText)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Name", message.Name);
                     command.Parameters.AddWithValue("@MessageText", message.MessageText);
-                    command.Parameters.AddWithValue("@Email", message.Email);
 
                     command.ExecuteNonQuery();
                 }
@@ -324,13 +322,14 @@ namespace ThaiRestaurant.Data
             using (var connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                var query = "INSERT INTO user (UserName, Email, Password) VALUES (@UserName, @Email, @Password)";
+                var query = "INSERT INTO user (UserName, Password, isAdmin) VALUES (@UserName, @Password, @isAdmin)";
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@UserName", user.UserName);
-                    command.Parameters.AddWithValue("@Email", user.Email);
                     var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
                     command.Parameters.AddWithValue("@Password", hashedPassword);
+                    bool isAdmin = user.UserName == "Admin";
+                    command.Parameters.AddWithValue("@isAdmin", isAdmin);
 
                     command.ExecuteNonQuery();
                 }
@@ -357,7 +356,8 @@ namespace ThaiRestaurant.Data
                                 {
                                     UserId = reader.GetInt32("UserId"),
                                     UserName = reader.GetString("UserName"),
-                                    Email = reader.GetString("Email"),
+                                    isAdmin = reader.IsDBNull(reader.GetOrdinal("isAdmin")) ? false : reader.GetBoolean("isAdmin")
+
                                 };
                             }
                         }

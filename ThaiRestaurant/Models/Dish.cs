@@ -7,11 +7,12 @@ namespace ThaiRestaurant.Models
         [Key]
         public int DishId { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name must be less than 100 characters")]
         public string Name { get; set; }
 
-        [StringLength(500)]
+        [Required(ErrorMessage = "Description is required")]
+        [StringLength(00, ErrorMessage = "Description must be less than 500 characters")]
         public string Description { get; set; }
 
         [Required]

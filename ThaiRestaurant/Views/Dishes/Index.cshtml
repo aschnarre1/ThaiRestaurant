@@ -13,7 +13,7 @@
                 
                 <div class="card-body">
                     <img src="@dish.ImageUrl" class="card-img-top" alt="Image of @dish.Name">
-                    <p class="card-text">Price: @dish.Price</p>
+                    <p class="card-text">Price: $@dish.Price</p>
                     <p class="card-text">@dish.Description</p>
                     @if (User.Identity.IsAuthenticated)
                     {

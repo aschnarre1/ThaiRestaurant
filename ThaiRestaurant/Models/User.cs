@@ -6,14 +6,15 @@ namespace ThaiRestaurant.Models
     {
         [Key]
         public int UserId { get; set; }
-        [Required]
-        [StringLength(255)]
+        [Required(ErrorMessage = "Username is required")]
+        [StringLength(255, ErrorMessage = "Username must be less than 255 characters")]
         public string UserName { get; set; }
-        [Required]
-        [StringLength(255)]
-        public string Email { get; set; }
-        [Required]
-        [StringLength(255)]
+
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(255, ErrorMessage = "Password must be less than 255 characters")]
         public string Password { get; set; }
+
+        public bool isAdmin { get; set; }
+
     }
 }

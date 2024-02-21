@@ -15,12 +15,7 @@
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-floating py-2 col-12">
-                <input asp-for="Email" class="form-control border-0 shadow" />
-                <label asp-for="Email" class="ms-2" style="color: black;"></label>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating py-2 col-12">
-                <input asp-for="Password" class="form-control border-0 shadow" />
+                <input asp-for="Password" class="form-control border-0 shadow" type="password" />
                 <label asp-for="Password" class="ms-2" style="color: black;"></label>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
@@ -28,3 +23,12 @@
         </form>
     </div>
 </div>
+
+
+<script>
+    document.querySelector('form').addEventListener('submit', function () {
+        document.querySelectorAll('input[type="text"], input[type="password"]').forEach(function (input) {
+            input.value = input.value.trim();
+        });
+    });
+</script>

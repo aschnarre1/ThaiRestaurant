@@ -28,6 +28,8 @@ namespace ThaiRestaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                message.Name = message.Name.Trim();
+                message.MessageText = message.MessageText.Trim().ToLower();
                 _context.CreateMessage(message);
                 return RedirectToAction("Index", "Home");
             }

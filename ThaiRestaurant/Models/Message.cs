@@ -7,14 +7,13 @@ namespace ThaiRestaurant.Models
         [Key]
         public int MessageId { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, ErrorMessage = "Name must be less than 100 characters")]
         public string Name { get; set; }
 
-        [StringLength(255)]
-        public string Email { get; set; }
 
-        [StringLength(500)]
+        [Required(ErrorMessage = "Message is required")]
+        [StringLength(500, ErrorMessage = "Message must be less than 500 characters")]
         public string MessageText { get; set; }
     }
 }
