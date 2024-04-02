@@ -16,6 +16,7 @@ namespace ThaiRestaurant.Controllers
             _context = context;
         }
         //test
+        //testing 2
         public IActionResult Index()
         {
             var dishes = _context.GetDishes(); 
