@@ -32,6 +32,7 @@ namespace ThaiRestaurant.Controllers
             List<Dish> dishes = _context.GetDishes();
 
             return View(dishes);
+
         }
 
         [Authorize]
@@ -60,6 +61,7 @@ namespace ThaiRestaurant.Controllers
 
                 return RedirectToAction("Index");
             }
+
             else
             {
                 // Log or inspect the validation errors
@@ -86,6 +88,8 @@ namespace ThaiRestaurant.Controllers
 
             return View(dish);
         }
+
+
 
         [Authorize]
         [HttpPost]
