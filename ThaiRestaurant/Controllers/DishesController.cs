@@ -1,17 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http; 
 using ThaiRestaurant.Data;
 using ThaiRestaurant.Models;
-using Google.Protobuf;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace ThaiRestaurant.Controllers
 {
     public class DishesController : Controller
     {
+        #region Fields
+
         private readonly DatabaseContext _context;
         private readonly ImageUploadService _imageUploadService;
 
+        #endregion Fields
+
+        #region Controllers
 
         public DishesController(DatabaseContext context, ImageUploadService imageUploadService)
         {
@@ -19,22 +23,25 @@ namespace ThaiRestaurant.Controllers
             _imageUploadService = imageUploadService;
         }
 
+        #endregion Controllers
+
+        #region Public Methods
 
         public IActionResult Index()
         {
-            var dishes = _context.GetDishes();
+            List<Dish> dishes = _context.GetDishes();
+
             return View(dishes);
-
         }
-        [Authorize]
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public IActionResult Create(Dish dish, IFormFile imageFile)
         {
             if (imageFile != null && imageFile.Length > 0)
@@ -42,23 +49,23 @@ namespace ThaiRestaurant.Controllers
                 dish.ImageUrl = _imageUploadService.UploadImage(imageFile);
             }
 
-
             ModelState.Remove("ImageUrl"); // Remove ModelState errors related to ImageUrl
 
             if (ModelState.IsValid)
             {
                 dish.Name = dish.Name.Trim();
                 dish.Description = dish.Description.Trim();
+
                 _context.AddDish(dish, imageFile);
+
                 return RedirectToAction("Index");
             }
-
             else
             {
                 // Log or inspect the validation errors
-                foreach (var value in ModelState.Values)
+                foreach (ModelStateEntry value in ModelState.Values)
                 {
-                    foreach (var error in value.Errors)
+                    foreach (ModelError error in value.Errors)
                     {
                         Console.WriteLine(error.ErrorMessage); // Log the error message
                     }
@@ -67,24 +74,21 @@ namespace ThaiRestaurant.Controllers
             }
         }
 
-
-
         [Authorize]
-
         public IActionResult Edit(int id)
         {
-            var dish = _context.GetDishById(id);
+            Dish dish = _context.GetDishById(id);
+
             if (dish == null)
             {
                 return NotFound();
             }
+
             return View(dish);
         }
 
-
-
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public IActionResult Edit(int id, Dish dish, IFormFile imageFile)
         {
             if (imageFile == null || imageFile.Length == 0)
@@ -94,7 +98,8 @@ namespace ThaiRestaurant.Controllers
 
             if (ModelState.IsValid)
             {
-                var existingDish = _context.GetDishById(id);
+                Dish existingDish = _context.GetDishById(id);
+
                 if (existingDish == null)
                 {
                     return NotFound();
@@ -105,31 +110,29 @@ namespace ThaiRestaurant.Controllers
                     existingDish.ImageUrl = _imageUploadService.UploadImage(imageFile); // Update ImageUrl only if a new file is provided
                 }
 
-                dish.Name = dish.Name.Trim();
-                dish.Description = dish.Description.Trim();
-                existingDish.Name = dish.Name;
-                existingDish.Description = dish.Description;
+                existingDish.Name = dish.Name.Trim();
+                existingDish.Description = dish.Description.Trim();
                 existingDish.Price = dish.Price;
                 existingDish.IsFeatured = dish.IsFeatured;
 
                 _context.EditDish(existingDish);
+
                 return RedirectToAction("Index");
             }
+
             return View(dish);
         }
 
-
-
-
         [Authorize]
-
         public IActionResult Delete(int id)
         {
-            var dish = _context.GetDishById(id);
+            Dish dish = _context.GetDishById(id);
+
             if (dish == null)
             {
                 return NotFound();
             }
+
             return View(dish);
         }
 
@@ -137,8 +140,10 @@ namespace ThaiRestaurant.Controllers
         public IActionResult DeleteData(int id) 
         {
             _context.DeleteDish(id);
+
             return RedirectToAction("Index");
         }
 
+        #endregion Public Methods
     }
 }
