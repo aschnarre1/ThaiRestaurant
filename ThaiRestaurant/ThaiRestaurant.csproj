@@ -14,4 +14,12 @@
     <PackageReference Include="MySqlConnector" Version="2.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".ebextensions\securelistener-clb.config" />
+  </ItemGroup>
+
 </Project>

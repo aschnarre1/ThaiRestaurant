@@ -11,6 +11,16 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    @* Fonts used in navbar *@
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="manifest" href="/images/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
 
 </head>
 <body>
@@ -22,9 +32,9 @@
             var remoteIp = Context.Connection.RemoteIpAddress.ToString();
             var isAllowedIp = allowedIps.Contains(remoteIp);
         }
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-custom navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">All Rice Thai Hut</a>
+                <a class="navbar-brand custom-font" asp-area="" asp-controller="Home" asp-action="Index">All Rice Thai Hut</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -41,17 +51,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://allricethaihutwa.smiledining.com/?2023121402">Click here to order online!</a>
+                            <a class="nav-link" href="https://www.beyondmenu.com/35318/everett/all-rice-thai-hut-everett-98204.aspx?utm_source=satellite&utm_medium=home_order&_">Click here to order online!</a>
                         </li>
                         <div class="ms-auto d-flex">
                             @if (!User.Identity.IsAuthenticated)
                             {
-                                @if (isAllowedIp)
+@*                                 @if (isAllowedIp)
                                 {
                                     <li class="nav-item">
                                          <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
                                     </li>
-                                }
+                                } *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                             </li>

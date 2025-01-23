@@ -46,14 +46,14 @@ h1,h2,h3,h4,h5,h6{
 .nav-link {
     padding: 0.25rem 0;
     font-weight: 700;
-    color: rgb(255, 255, 255);
+    color: green !important; 
     margin-left: 1rem;
     border-bottom: 0.25rem solid transparent;
 }
 
     .nav-link:hover {
         color: rgba(255, 255, 255, 0.5);
-        border-bottom-color: black;
+        border-bottom-color: darkgreen;
     }
 
     .nav-link.active {
@@ -130,6 +130,7 @@ h1,h2,h3,h4,h5,h6{
 
 .card {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
 }
 
 
@@ -160,6 +161,22 @@ h1,h2,h3,h4,h5,h6{
     color: #555;
 }
 
+
+
+.dishes-page .card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 8px #333;
+    z-index: 10;
+}
+
+
+    .dishes-page .card:hover .card-img-top {
+        transform: scale(1.02);
+        transition: transform 0.3s ease-in-out;
+    }
+
+
 .btn-primary {
     margin-right: 5px;
     margin-top: 5px;
@@ -176,7 +193,21 @@ h1,h2,h3,h4,h5,h6{
     padding: 15px;
 }
 
+.custom-font {
+    font-family: 'Protest Revolution', sans-serif;
+/*    font-size: 25px;
+*/    font-weight: 600;
+    color: green !important;
+}
 
+.custom-dark {
+    background-color: #343a40; /* Dark grey similar to navbar-dark */
+    color: #28a745; /* Bootstrap's green */
+}
+
+.custom-green-text {
+    color: #28a745 !important; /* Bootstrap's green */
+}
 
 
 
@@ -212,6 +243,9 @@ h1,h2,h3,h4,h5,h6{
     }
 }
 
+
+
+
 #welcomeHeader {
     text-align: center;
 }
@@ -237,4 +271,46 @@ h1,h2,h3,h4,h5,h6{
 
 #FeedBackHead{
     margin-top: 20px;
+}
+
+
+/* Custom styles.css */
+@media (max-width: 753px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-collapse.collapsing {
+        height: auto !important;
+        -webkit-transition: none;
+        transition: none;
+    }
+
+    .navbar-collapse.show {
+        display: block !important;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+    }
+}
+
+@media (min-width: 754px) {
+    .navbar-expand-custom {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+        .navbar-expand-custom .navbar-nav {
+            flex-direction: row;
+        }
+
+        .navbar-expand-custom .navbar-toggler {
+            display: none;
+        }
+
+        .navbar-expand-custom .navbar-collapse {
+            display: flex !important;
+        }
 }
